@@ -17,6 +17,12 @@ export default (appInfo: EggAppInfo) => {
     replaceEggLogger: true,
   };
 
+  // cors
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  };
+
   // config.security = {
   //   csrf: false,
   // };

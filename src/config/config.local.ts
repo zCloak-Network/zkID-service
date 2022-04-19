@@ -13,8 +13,8 @@ export const security = {
  */
 export const mongoose = {
   client: {
-    uri: 'mongodb://localhost:27017/zCloak',
-    // uri: 'mongodb://45.77.247.174:27017/zCloak',
+    // uri: 'mongodb://localhost:27017/zCloak',
+    uri: 'mongodb://192.168.31.47:27017/zCloak',
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,

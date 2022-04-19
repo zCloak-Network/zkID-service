@@ -1,8 +1,7 @@
-import { EntityModel } from '@midwayjs/typegoose';
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
-@EntityModel()
-@modelOptions({ schemaOptions: { collection: 'transfers' } })
+// @EntityModel()
+// @modelOptions({ schemaOptions: { collection: 'transfers' } })
 export class Transfer {
   @prop({ required: true })
   tokenAddress: string;

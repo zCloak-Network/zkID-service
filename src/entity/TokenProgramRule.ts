@@ -1,8 +1,7 @@
-import { EntityModel } from '@midwayjs/typegoose';
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
-@EntityModel()
-@modelOptions({ schemaOptions: { collection: 'token_program_rules' } })
+// @EntityModel()
+// @modelOptions({ schemaOptions: { collection: 'token_program_rules' } })
 export class TokenProgramRule {
   @prop({ required: true })
   tokenAddress: string;

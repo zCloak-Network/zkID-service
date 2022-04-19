@@ -2,8 +2,8 @@ import { EntityModel } from '@midwayjs/typegoose';
 import { modelOptions, prop } from '@typegoose/typegoose';
 
 @EntityModel()
-@modelOptions({schemaOptions: {collection: 'proofs'}})
-export class Proof {
+@modelOptions({schemaOptions: {collection: 'verifyings'}})
+export class Verifying {
   // ====optional
   @prop()
   blockNumber: number;
@@ -17,29 +17,26 @@ export class Proof {
   // ====optional
 
   @prop({required: true})
-  dataOwner: string;
-
-  @prop({required: true})
-  attester: string;
-
-  @prop({required: true})
-  cType: string;
-
-  @prop({required: true})
-  programHash: string;
-
-  @prop({required: true})
-  fieldNames: string[];
-
-  @prop({required: true})
-  proofCid: string;
+  cOwner: string;
 
   @prop({required: true})
   requestHash: string;
 
   @prop({required: true})
+  worker: string;
+
+  @prop({required: true})
+  outputHash: string;
+
+  @prop({required: true})
   rootHash: string;
 
   @prop({required: true})
-  expectResult: number[];
+  attester: string;
+
+  @prop({required: true})
+  isPassed: boolean;
+
+  @prop({required: true})
+  calcResult: number[];
 }

@@ -5,9 +5,10 @@ import { join } from 'path';
 import * as typegoose from '@midwayjs/typegoose';
 import * as task from '@midwayjs/task';
 import Web3 from 'web3';
+import * as swagger from '@midwayjs/swagger';
 
 @Configuration({
-  imports: [typegoose, task],
+  imports: [typegoose, task, swagger],
   importConfigs: [join(__dirname, './config')],
   conflictCheck: true,
 })
@@ -23,4 +24,5 @@ export class ContainerLifeCycle implements ILifeCycle {
     const web3 = new Web3(Web3.givenProvider || this.moonbeamAddress);
     container.registerObject('web3', web3);
   }
+
 }

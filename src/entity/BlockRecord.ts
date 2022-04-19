@@ -1,8 +1,7 @@
-import { EntityModel } from '@midwayjs/typegoose';
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
-@EntityModel()
-@modelOptions({ schemaOptions: { collection: 'block_records' } })
+// @EntityModel()
+// @modelOptions({ schemaOptions: { collection: 'block_records' } })
 export class BlockRecord {
   @prop({ required: true })
   blockNumber: string;
