@@ -18,7 +18,12 @@ $ open http://localhost:7001/
 
 ```bash
 $ npm start
+$ curl https://zkid-service.zcloak.network/
+```
+
+```
 $ npm stop
+
 ```
 
 ### npm scripts
