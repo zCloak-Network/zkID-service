@@ -18,13 +18,13 @@ export class MintPoapController {
     .param('who')
     .respond(200, 'mint poap list', 'json', {
       example: {
-        "code": 200,
-        "data": {
+        code: 200,
+        data: {
           poapId: '1',
           who: '1',
           nftId: '1',
-        }
-      }
+        },
+      },
     })
     .build()
   @Get('/')

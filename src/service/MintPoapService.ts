@@ -9,6 +9,6 @@ export class MintPoapService {
   mintPoapModel: ReturnModelType<typeof MintPoap>;
 
   async getByWho(who: string) {
-    return await this.mintPoapModel.findOne({who}).exec();
+    return await this.mintPoapModel.findOne({ who }).exec();
   }
 }

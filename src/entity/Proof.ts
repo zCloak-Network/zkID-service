@@ -1,45 +1,34 @@
 import { EntityModel } from '@midwayjs/typegoose';
 import { modelOptions, prop } from '@typegoose/typegoose';
+import { BaseBlockInfo } from './BaseBlockInfo';
 
 @EntityModel()
-@modelOptions({schemaOptions: {collection: 'proofs'}})
-export class Proof {
-  // ====optional
-  @prop()
-  blockNumber: number;
-
-  @prop()
-  blockHash: string;
-
-  @prop()
-  transactionHash: string;
-
-  // ====optional
-
-  @prop({required: true})
+@modelOptions({ schemaOptions: { collection: 'proofs' } })
+export class Proof extends BaseBlockInfo {
+  @prop({ required: true })
   dataOwner: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   attester: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   cType: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   programHash: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   fieldNames: string[];
 
-  @prop({required: true})
+  @prop({ required: true })
   proofCid: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   requestHash: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   rootHash: string;
 
-  @prop({required: true})
+  @prop({ required: true })
   expectResult: number[];
 }

@@ -1,3 +1,0 @@
-export function isEmpty<T>(arr: T[]) {
-  return !(arr && arr.length && arr.length > 0);
-}
