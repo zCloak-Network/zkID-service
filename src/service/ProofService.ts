@@ -90,13 +90,13 @@ export class ProofService {
     return resultList;
   }
 
-  async getVerifiedStatusFromVerifiedCanonical(verifiedCanonicals: any[]) {
+  getVerifiedStatusFromVerifiedCanonical(verifiedCanonicals: any[]) {
     return (
       ArrUtils.isNotEmpty(verifiedCanonicals) && verifiedCanonicals[0].isPassed
     );
   }
 
-  async getFinishedStatusFromVerifiedCanonical(verifiedCanonicals: any[]) {
+  getFinishedStatusFromVerifiedCanonical(verifiedCanonicals: any[]) {
     return (
       ArrUtils.isNotEmpty(verifiedCanonicals) &&
       ArrUtils.isNotEmpty(verifiedCanonicals[0].canonical)
