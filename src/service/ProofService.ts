@@ -34,16 +34,14 @@ export class ProofService {
         const rootHash = proofWithVerifyingAndCType.rootHash;
 
         const item: any = {
-          cTypeHash: proofWithVerifyingAndCType.ctypes[0].ctypeHash,
           rootHash,
           proofCid: proofWithVerifyingAndCType.proofCid,
           expectResult: proofWithVerifyingAndCType.expectResult,
+          cTypeHash: proofWithVerifyingAndCType.ctypes[0].ctypeHash,
           fieldNames: proofWithVerifyingAndCType.fieldNames.join(','),
-          time: proofWithVerifyingAndCType.blockTime
-            ? DateUtils.format(
-                new Date(proofWithVerifyingAndCType.blockTime * 1000)
-              )
-            : null,
+          time: DateUtils.formatTimestampToStr(
+            proofWithVerifyingAndCType.blockTime * 1000
+          ),
         };
 
         // percent
