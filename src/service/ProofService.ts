@@ -1,16 +1,18 @@
-import { Inject, Provide } from '@midwayjs/decorator';
-import { ReturnModelType } from '@typegoose/typegoose';
-import { Proof } from '../entity/Proof';
+import { Config, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typegoose';
-import { Verifying } from '../entity/Verifying';
+import { ReturnModelType } from '@typegoose/typegoose';
 import { Program } from '../entity/Program';
-import { StrUtils } from '../util/StrUtils';
+import { Proof } from '../entity/Proof';
+import { Verifying } from '../entity/Verifying';
 import { ArrUtils } from '../util/ArrUtils';
-import { SysConfigService } from './SysConfigService';
 import { DateUtils } from '../util/DateUtils';
+import { StrUtils } from '../util/StrUtils';
 
 @Provide()
 export class ProofService {
+  @Config('zCloak.worker.verifyPassNumber')
+  verifyPassNumber: number;
+
   @InjectEntityModel(Proof)
   proofModel: ReturnModelType<typeof Proof>;
 
@@ -19,9 +21,6 @@ export class ProofService {
 
   @InjectEntityModel(Program)
   programModel: ReturnModelType<typeof Program>;
-
-  @Inject()
-  sysConfigService: SysConfigService;
 
   async listUserProofProcess(dataOwner: string, programHash: string) {
     const proofWithVerifyingAndCTypes =
@@ -45,7 +44,7 @@ export class ProofService {
         };
 
         // percent
-        const percent = await this.getUserProofPercent(
+        const percent = await this.getProofVerifyPercent(
           proofWithVerifyingAndCType.dataOwner,
           rootHash
         );
@@ -197,14 +196,11 @@ export class ProofService {
     return await this.proofModel.aggregate(pipelines).exec();
   }
 
-  private async getUserProofPercent(dataOwner: string, rootHash: string) {
-    const workerNum = await this.sysConfigService.getSysConfig('workerNum');
+  async getProofVerifyPercent(dataOwner: string, rootHash: string) {
+    const count = await this.verifyingModel.count({cOwner: dataOwner, rootHash}).exec();
 
-    const verifyings = await this.verifyingModel.find({
-      dataOwner,
-      rootHash,
-    });
-    const result = verifyings.length / Number(workerNum);
+    const needPassNumber = this.verifyPassNumber || 2;
+    const result = count / needPassNumber;
     return (result > 1 ? 1 : result).toFixed(2);
   }
 }

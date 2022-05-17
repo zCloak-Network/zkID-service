@@ -29,6 +29,9 @@ export const logger = {
 };
 
 export const zCloak = {
-  // default count of worker
-  workerNum: 2,
+  // worker
+  worker: {
+    // number of worker verify pass
+    verifyPassNumber: 2,
+  },
 };
