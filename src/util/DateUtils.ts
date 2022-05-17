@@ -1,12 +1,13 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+
 import { ObjUtils } from './ObjUtils';
 
 // use utc time
 dayjs.extend(utc);
 
 export class DateUtils {
-  static DEFAULT_FORMAT_STR = 'YYYY-MM-DD HH:mm:ss';
+  static DEFAULT_FORMAT_STR = 'YYYY-MM-DD HH:mm:ss Z';
 
   static formatTimestampToStr(timestamp: number) {
     if (ObjUtils.isNotNull(timestamp)) {
