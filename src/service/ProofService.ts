@@ -1,11 +1,13 @@
 import { Config, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typegoose';
 import { ReturnModelType } from '@typegoose/typegoose';
+import { Canonical } from '../entity/Canonical';
 import { Program } from '../entity/Program';
 import { Proof } from '../entity/Proof';
 import { Verifying } from '../entity/Verifying';
 import { ArrUtils } from '../util/ArrUtils';
 import { DateUtils } from '../util/DateUtils';
+import { ObjUtils } from '../util/ObjUtils';
 import { StrUtils } from '../util/StrUtils';
 
 @Provide()
@@ -18,6 +20,9 @@ export class ProofService {
 
   @InjectEntityModel(Verifying)
   verifyingModel: ReturnModelType<typeof Verifying>;
+
+  @InjectEntityModel(Canonical)
+  canonicalModel: ReturnModelType<typeof Canonical>;
 
   @InjectEntityModel(Program)
   programModel: ReturnModelType<typeof Program>;
@@ -98,6 +103,88 @@ export class ProofService {
       ArrUtils.isNotEmpty(verifiedCanonicals) &&
       ArrUtils.isNotEmpty(verifiedCanonicals[0].canonical)
     );
+  }
+
+  async getProofVerifyProcess(dataOwner: string, requestHash: string) {
+    const proofWithVerifying = await this.getProofWithVerifying(dataOwner, requestHash);
+
+    if (ObjUtils.isNull(proofWithVerifying)) {
+      return {};
+    }
+
+    const canonicalWithVerifyings = await this.canonicalModel
+      .aggregate([
+        {
+          $match: {cOwner: dataOwner, requestHash},
+        },
+        {
+          $lookup: {
+            from: 'verifyings',
+            localField: 'outputHash',
+            foreignField: 'outputHash',
+            as: 'verifying',
+          },
+        },
+        {
+          $project: {
+            cOwner: 1,
+            requestHash: 1,
+            outputHash: 1,
+            verifying: {
+              $filter: {
+                input: '$verifying',
+                as: 'item',
+                cond: {
+                  $and: [
+                    {
+                      $eq: ['$$item.cOwner', '$cOwner'],
+                    },
+                    {
+                      $eq: ['$$item.requestHash', '$requestHash'],
+                    },
+                  ],
+                },
+              }
+            },
+          },
+        },
+        {
+          $sort: {blockTime: 1}
+        },
+        {
+          $limit: 1,
+        },
+      ])
+      .exec();
+
+    const finished = ArrUtils.isNotEmpty(canonicalWithVerifyings);
+    const verified = finished && canonicalWithVerifyings[0].verifying[0].isPassed;
+
+    return {
+      ...proofWithVerifying,
+      finished,
+      verified,
+    };
+  }
+
+  private async getProofWithVerifying(dataOwner: string, requestHash: string) {
+    // 1.get proof
+    const proofModel = await this.proofModel.findOne({dataOwner, requestHash})
+      .sort({blockTime: 1})
+      .exec();
+
+    if (ObjUtils.isNull(proofModel)) {
+      return null;
+    }
+
+    // 2.get verifying
+    // 3.merge data
+    const proof = proofModel.toObject();
+    proof.verifying = await this.verifyingModel.find({requestHash, cOwner: dataOwner})
+      .sort({blockTime: 1})
+      .exec();
+
+    return proof;
   }
 
   async getAttestResult(rootHash: string) {
@@ -203,4 +290,5 @@ export class ProofService {
     const result = count / needPassNumber;
     return (result > 1 ? 1 : result).toFixed(2);
   }
+
 }
