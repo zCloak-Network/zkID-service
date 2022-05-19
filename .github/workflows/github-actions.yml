@@ -1,4 +1,4 @@
-name: GitHub Actions 
+name: GitHub Actions
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -19,8 +19,7 @@ jobs:
           script: |
             cd /root/workspace/zkID-service/
             git pull
+            npm install
             npm run build
             npm stop
             npm start
-
-
