@@ -13,7 +13,7 @@ export const security = {
  */
 export const mongoose = {
   client: {
-    uri: 'mongodb://localhost:27017/zCloak',
+    uri: '',
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -34,4 +34,31 @@ export const zCloak = {
     // number of worker verify pass
     verifyPassNumber: 2,
   },
+  scan: {
+    // contract config
+    contractConfigs: [
+      {
+        chainId: 1287,
+        contract: {
+          'ProofStorage': '',
+          'SimpleAggregator': '',
+          'ZcloakPoap': '',
+        },
+      },
+    ],
+  },
+};
+
+/**
+ * orm config
+ */
+export const orm = {
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: '',
+  database: '',
+  synchronize: false,
+  logging: true, // print sql
 };
