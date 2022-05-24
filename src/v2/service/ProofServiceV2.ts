@@ -34,6 +34,22 @@ export class ProofServiceV2 {
   @Inject()
   contractConfigGetter: ContractConfigGetter;
 
+  async getUserAddressByRootHash(rootHash: string, chainId: number) {
+    const proofVersionId = await this.contractConfigGetter.getVersionIdByEntity(chainId, Proof);
+    const proof = await this.proofRepository.findOne({
+      where: {
+        rootHash,
+        versionId: proofVersionId,
+      },
+    });
+
+    if (ObjUtils.isNotNull(proof)) {
+      return proof.dataOwner;
+    }
+
+    return null;
+  }
+
   async listUserProofProcess(dataOwner: string, programHash: string, chainId: number) {
     const resultList = [];
 
