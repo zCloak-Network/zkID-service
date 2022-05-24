@@ -1,9 +1,16 @@
 import { EntityModel } from '@midwayjs/typegoose';
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { modelOptions, prop, Severity } from '@typegoose/typegoose';
 import { BaseBlockInfo } from './BaseBlockInfo';
 
 @EntityModel()
-@modelOptions({ schemaOptions: { collection: 'proofs' } })
+@modelOptions({
+  schemaOptions: {
+    collection: 'proofs',
+  },
+  options: {
+    allowMixed: Severity.ALLOW,
+  },
+})
 export class Proof extends BaseBlockInfo {
   @prop({ required: true })
   dataOwner: string;
