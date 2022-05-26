@@ -27,6 +27,16 @@ export class ProofService {
   @InjectEntityModel(Program)
   programModel: ReturnModelType<typeof Program>;
 
+  async getUserAddressByRootHash(rootHash: string) {
+    const proofModel = await this.proofModel.findOne({rootHash}).exec();
+
+    if (ObjUtils.isNotNull(proofModel)) {
+      return proofModel.toObject().dataOwner;
+    }
+
+    return null;
+  }
+
   async listUserProofProcess(dataOwner: string, programHash: string) {
     const proofWithVerifyingAndCTypes =
       await this.listProofWithVerifingAndCtype(dataOwner, programHash);
