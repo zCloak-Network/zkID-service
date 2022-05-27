@@ -41,6 +41,8 @@ jobs:
           port: 22
           script: |
             source ~/.bashrc
+            source ~/.bash_aliases
+            echo $PATH
             cd /home/ubuntu/zkID-service/
             git pull
             npm install
