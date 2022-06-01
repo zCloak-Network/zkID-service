@@ -13,12 +13,13 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          username: ubuntu
           key: ${{ secrets.KEY }}
-          passphrase: ${{ secrets.PASSPHRASE}}
-          port: ${{ secrets.PORT }}
+          port: 22
           script: |
-            cd /root/workspace/zkID-service/
+            source ~/.bashrc
+            source ~/.bash_aliases
+            cd /home/ubuntu/zkID-service/
             git pull
             npm install
             npm run build
@@ -40,6 +41,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
+            source ~/.bashrc
+            source ~/.bash_aliases
             cd /home/ubuntu/zkID-service/
             git pull
             npm install
