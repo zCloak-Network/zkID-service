@@ -6,6 +6,11 @@
 
 see [midway docs][midway] for more detail.
 
+### Database init
+
+script location `sql/init.sql`
+
+
 ### Development
 
 ```bash
