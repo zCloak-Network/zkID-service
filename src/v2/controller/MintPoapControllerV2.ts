@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../../../../zkID-service-bak/src/util/ResultVO';
+import { ResultVO } from '../../util/ResultVO';
 import { PoapServiceV2 } from '../service/PoapServiceV2';
 
 @Provide()

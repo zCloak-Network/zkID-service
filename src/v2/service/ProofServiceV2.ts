@@ -1,9 +1,9 @@
 import { Config, Inject, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/orm';
 import { Repository } from 'typeorm';
-import { ArrUtils } from '../../../../zkID-service-bak/src/util/ArrUtils';
-import { DateUtils } from '../../../../zkID-service-bak/src/util/DateUtils';
-import { ObjUtils } from '../../../../zkID-service-bak/src/util/ObjUtils';
+import { ArrUtils } from '../../util/ArrUtils';
+import { DateUtils } from '../../util/DateUtils';
+import { ObjUtils } from '../../util/ObjUtils';
 import { ContractConfigGetter } from '../contract/ContractConfigGetter';
 import { Canonical } from '../entity/Canonical';
 import { CType } from '../entity/CType';

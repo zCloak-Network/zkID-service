@@ -3,8 +3,8 @@ import { InjectEntityModel } from '@midwayjs/orm';
 import { Repository } from 'typeorm';
 import { ContractConfigGetter } from '../contract/ContractConfigGetter';
 import { Proof } from '../entity/Proof';
-import { ArrUtils } from '../../../../zkID-service-bak/src/util/ArrUtils';
-import { DateUtils } from '../../../../zkID-service-bak/src/util/DateUtils';
+import { ArrUtils } from '../../util/ArrUtils';
+import { DateUtils } from '../../util/DateUtils';
 import { Poap } from '../entity/Poap';
 
 @Provide()
