@@ -16,6 +16,9 @@ export class ProofServiceV2 {
   @Config('zCloak.worker.verifyPassNumber')
   verifyPassNumber: number;
 
+  @Config('zCloak.program.demoHash')
+  demoHash: string;
+
   @InjectEntityModel(Proof)
   proofRepository: Repository<Proof>;
 
@@ -50,14 +53,14 @@ export class ProofServiceV2 {
     return null;
   }
 
-  async listUserProofProcess(dataOwner: string, programHash: string, chainId: number) {
+  async listUserProofProcess(dataOwner: string, requestHash: string, chainId: number) {
     const resultList = [];
 
     // get proof
     const proofVersionId = await this.contractConfigGetter.getVersionIdByEntity(chainId, Proof);
     const proofs = await this.proofRepository.findBy({
       dataOwner,
-      programHash,
+      requestHash,
       versionId: proofVersionId,
     });
 
@@ -105,7 +108,9 @@ export class ProofServiceV2 {
         }
 
         // program
-        const programDetails = await this.programRepository.findOneBy({programHash});
+        const programDetails = await this.programRepository.findOneBy({
+          programHash: this.demoHash,
+        });
 
         // cType
         const cType = await this.cTypeRepository.findOneBy({ctypeHash: cTypeHash});

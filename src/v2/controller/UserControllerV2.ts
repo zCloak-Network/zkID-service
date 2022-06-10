@@ -79,12 +79,12 @@ export class UserControllerV2 {
   @Get('/proof')
   async listUserProofProcess(
     @Query('dataOwner') dataOwner: string,
-    @Query('programHash') programHash: string,
+    @Query('requestHash') requestHash: string,
     @Query('chainId') chainId: number,
   ) {
     const data = await this.proofService.listUserProofProcess(
       dataOwner,
-      programHash,
+      requestHash,
       chainId,
     );
     return ResultVO.success(data);
