@@ -47,6 +47,9 @@ export const zCloak = {
       },
     ],
   },
+  program: {
+    demoHash: '',
+  },
 };
 
 /**
