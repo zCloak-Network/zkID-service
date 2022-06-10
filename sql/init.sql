@@ -145,8 +145,40 @@ CREATE TABLE `raw_scan_verifying` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
 
+-- ----------------------------
+-- Table structure for program
+-- ----------------------------
+DROP TABLE IF EXISTS `program`;
+CREATE TABLE `program` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `program_hash` varchar(255) NOT NULL,
+  `program_field_name` varchar(255) NOT NULL,
+  `program_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for ctype
+-- ----------------------------
+DROP TABLE IF EXISTS `ctype`;
+CREATE TABLE `ctype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `metadata` json NOT NULL,
+  `ctype_hash` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- ----------------------------
+-- Records of program
+-- ----------------------------
+INSERT INTO `program` (`id`, `createTime`, `updateTime`, `program_hash`, `program_field_name`, `program_name`) VALUES (1, '2022-05-20 13:49:24.320247', '2022-05-20 13:49:24.320247', '0x5bf2b53b6831c372efcbd0ed2f7149c2997609141b8ff3bdbf692335df0d2e06', 'age, class, helmet_rarity, chest_rarity, weapon_rarity', 'POAP Issuance Rule');
 
 INSERT INTO `ctype` (`id`, `createTime`, `updateTime`, `metadata`, `ctype_hash`, `owner`) VALUES (1, '2022-05-20 13:49:24.345198', '2022-05-20 13:49:24.345198', '{\"$id\": \"kilt:ctype:0xe21c5f437332f33db0e6f9cef958f2ff3fedfbcdeb60d4ff24db978b487aad1a\", \"type\": \"object\", \"title\": \"credential_test0412\", \"$schema\": \"http://kilt-protocol.org/draft-01/ctype#\", \"properties\": {\"age\": {\"type\": \"integer\"}, \"name\": {\"type\": \"string\"}, \"class\": {\"type\": \"integer\"}, \"chest_rarity\": {\"type\": \"integer\"}, \"helmet_rarity\": {\"type\": \"integer\"}, \"weapon_rarity\": {\"type\": \"integer\"}}}', '0xe21c5f437332f33db0e6f9cef958f2ff3fedfbcdeb60d4ff24db978b487aad1a', 'did:kilt:4rdUX21mgJYGPpU3PmmjSMDkthg9yD2eFeRXyh84tD6ssvS4');
 
