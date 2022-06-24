@@ -9,7 +9,7 @@ export class Poap extends BaseBlockEntity {
   @Column({name: 'poap_id'})
   poapId: string;
 
-  @Column({name: 'who'})
+  @Column({name: 'who_hex'})
   who: string;
 
   @Column({name: 'nft_id'})

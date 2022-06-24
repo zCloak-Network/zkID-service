@@ -11,7 +11,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1649903965423_1061';
 
   // add your config here
-  config.middleware = [];
+  config.middleware = ['checksumAddressCheckMiddleware'];
 
   config.midwayFeature = {
     // true 代表使用 midway logger

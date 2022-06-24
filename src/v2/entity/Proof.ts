@@ -6,7 +6,7 @@ import { BaseBlockEntity } from './BaseBlockEntity';
 @Contract({name: 'ProofStorage'})
 @EntityModel({name: 'raw_scan_proof'})
 export class Proof extends BaseBlockEntity {
-  @Column({name: 'data_owner'})
+  @Column({name: 'data_owner_hex'})
   dataOwner: string;
 
   @Column({name: 'attester'})
