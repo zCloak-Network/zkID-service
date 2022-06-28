@@ -6,7 +6,7 @@ import { BaseBlockEntity } from './BaseBlockEntity';
 @Contract({name: 'SimpleAggregator'})
 @EntityModel({name: 'raw_scan_canonical'})
 export class Canonical extends BaseBlockEntity {
-  @Column({name: 'data_owner'})
+  @Column({name: 'data_owner_hex'})
   dataOwner: string;
 
   @Column({name: 'request_hash'})
