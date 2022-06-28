@@ -1,6 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import { loggers } from '@midwayjs/logger';
-import { ResultVO } from '../util/ResultVO';
+import { ResultResponse } from '../util/ResultResponse';
 
 export type DefaultConfig = PowerPartial<EggAppConfig>;
 
@@ -37,7 +37,7 @@ export default (appInfo: EggAppInfo) => {
       loggers
         .getLogger('logger')
         .warn('url: %s, error is: %s', ctx.originalUrl, err);
-      ctx.body = JSON.stringify(ResultVO.error(err.message));
+      ctx.body = JSON.stringify(ResultResponse.error(err.message));
       ctx.status = 500;
     },
   };

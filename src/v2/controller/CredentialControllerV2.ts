@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Param, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../../util/ResultVO';
+import { ResultResponse } from '../../util/ResultResponse';
 import { ProofServiceV2 } from '../service/ProofServiceV2';
 
 @Provide()
@@ -31,6 +31,6 @@ export class CredentialControllerV2 {
     @Query('chainId') chainId: number,
   ) {
     const address = await this.proofServiceV2.getUserAddressByRootHash(rootHash, chainId);
-    return ResultVO.success({address})
+    return ResultResponse.success({address})
   }
 }

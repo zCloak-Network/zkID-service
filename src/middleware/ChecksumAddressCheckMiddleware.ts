@@ -29,7 +29,7 @@ export class ChecksumAddressCheckMiddleware implements IWebMiddleware {
   private checkAddressInQuery(query: any, key: string) {
     const address = query[key];
     if (StrUtils.isNotEmpty(address)) {
-      // user hex address
+      // use hex address
       query[key] = address.toLowerCase();
     }
   }

@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { MintPoapService } from '../service/MintPoapService';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../util/ResultVO';
+import { ResultResponse } from '../util/ResultResponse';
 
 @Provide()
 @Controller('/mint-poap', {
@@ -30,6 +30,6 @@ export class MintPoapController {
   @Get('/')
   async getByWho(@Query('who') who: string) {
     const data = await this.mintPoapService.getByWho(who);
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 }

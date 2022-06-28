@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../../util/ResultVO';
+import { ResultResponse } from '../../util/ResultResponse';
 import { ProofServiceV2 } from '../service/ProofServiceV2';
 import { UserServiceV2 } from '../service/UserServiceV2';
 
@@ -39,7 +39,7 @@ export class UserControllerV2 {
     @Query('chainId') chainId: number,
   ) {
     const data = await this.userService.listUserActivities(dataOwner, chainId);
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 
   @CreateApiDoc()
@@ -87,6 +87,6 @@ export class UserControllerV2 {
       requestHash,
       chainId,
     );
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 }

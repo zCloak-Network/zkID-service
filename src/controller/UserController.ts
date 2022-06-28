@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
 import { ProofService } from '../service/ProofService';
-import { ResultVO } from '../util/ResultVO';
+import { ResultResponse } from '../util/ResultResponse';
 import { UserService } from '../service/UserService';
 
 @Provide()
@@ -19,7 +19,7 @@ export class UserController {
   @Get('/activies')
   async listUserActivities(@Query('dataOwner') dataOwner: string) {
     const data = await this.userService.listUserActivities(dataOwner);
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 
   @CreateApiDoc()
@@ -65,6 +65,6 @@ export class UserController {
       dataOwner,
       programHash
     );
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 }

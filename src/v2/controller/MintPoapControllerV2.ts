@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../../util/ResultVO';
+import { ResultResponse } from '../../util/ResultResponse';
 import { PoapServiceV2 } from '../service/PoapServiceV2';
 
 @Provide()
@@ -33,6 +33,6 @@ export class MintPoapControllerV2 {
     @Query('chainId') chainId: number,
   ) {
     const data = await this.poapService.getByWho(who, chainId);
-    return ResultVO.success(data);
+    return ResultResponse.success(data);
   }
 }

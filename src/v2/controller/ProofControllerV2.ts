@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultVO } from '../../util/ResultVO';
+import { ResultResponse } from '../../util/ResultResponse';
 import { ProofServiceV2 } from '../service/ProofServiceV2';
 
 @Provide()
@@ -105,7 +105,7 @@ export class ProofControllerV2 {
     @Query('chainId') chainId: number,
   ) {
     const result = await this.proofService.getProofVerifyProcess(dataOwner, requestHash, chainId);
-    return ResultVO.success(result);
+    return ResultResponse.success(result);
   }
 
 }

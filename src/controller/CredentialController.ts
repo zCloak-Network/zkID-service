@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Param, Provide } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
 import { ProofService } from '../service/ProofService';
-import { ResultVO } from '../util/ResultVO';
+import { ResultResponse } from '../util/ResultResponse';
 
 @Provide()
 @Controller('/credential', {
@@ -27,6 +27,6 @@ export class CredentialController {
   @Get('/:rootHash/user')
   async isVerifiedByRootHash(@Param() rootHash: string) {
     const address = await this.proofService.getUserAddressByRootHash(rootHash);
-    return ResultVO.success({address})
+    return ResultResponse.success({address})
   }
 }
