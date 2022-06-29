@@ -8,21 +8,6 @@ export const security = {
   csrf: false,
 };
 
-/**
- * mongodb setting.
- */
-export const mongoose = {
-  client: {
-    uri: '',
-    options: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      user: '',
-      pass: '',
-    },
-  },
-};
-
 // local dev logger
 export const logger = {
   consoleLevel: 'debug',

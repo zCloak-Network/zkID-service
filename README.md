@@ -14,24 +14,6 @@ The configuration file is  located in `src/config/config.{current env}.ts`
 
 For example, the configuration file name is `config.local.ts` in development and `config.prod.ts` in deploy.
 
-#### ~~mongodb~~
-
-```typescript
-export const mongoose = {
-  client: {
-    uri: 'mongodb uri',
-    options: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      user: 'mongodb user',
-      pass: 'mongodb password',
-    },
-  },
-};
-```
-
-
-
 #### mysql
 
 ```typescript
