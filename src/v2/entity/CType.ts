@@ -2,15 +2,30 @@ import { EntityModel } from '@midwayjs/orm';
 import { Column } from 'typeorm';
 import { BaseEntity } from './BaseEntity';
 
-@EntityModel({name: 'ctype'})
+@EntityModel({ name: 'ctype' })
 export class CType extends BaseEntity {
-  @Column({name: 'metadata', type: 'json'})
+  @Column({
+    name: 'metadata',
+    type: 'json',
+    nullable: false,
+    comment: 'the metadata of ctype',
+  })
   metadata: IMetadata;
 
-  @Column({name: 'ctype_hash'})
+  @Column({
+    name: 'ctype_hash',
+    type: 'varchar',
+    nullable: false,
+    comment: 'the hash of ctype',
+  })
   ctypeHash: string;
 
-  @Column({name: 'owner'})
+  @Column({
+    name: 'owner',
+    type: 'varchar',
+    nullable: false,
+    comment: 'owner address',
+  })
   owner: string;
 }
 
