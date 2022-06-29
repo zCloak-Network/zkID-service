@@ -2,7 +2,6 @@ import { getClassMetadata, ILifeCycle, IMidwayContainer } from '@midwayjs/core';
 import { App, Config, Configuration, listModule } from '@midwayjs/decorator';
 import * as orm from '@midwayjs/orm';
 import * as swagger from '@midwayjs/swagger';
-import * as typegoose from '@midwayjs/typegoose';
 import { Application } from 'egg';
 import { join } from 'path';
 import { ArrUtils } from './util/ArrUtils';
@@ -10,7 +9,6 @@ import { CONTRACT_DECORATOR_KEY } from './v2/contract/Contract';
 
 @Configuration({
   imports: [
-    typegoose,
     swagger,
     orm,
   ],
