@@ -1,32 +1,52 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ProofService } from '../service/ProofService';
-import { ResultResponse } from '../util/ResultResponse';
-import { UserService } from '../service/UserService';
+import { ResultResponse } from '../../util/ResultResponse';
+import { ProofServiceV2 } from '../service/ProofServiceV2';
+import { UserServiceV2 } from '../service/UserServiceV2';
 
 @Provide()
-@Controller('/user', {
+@Controller('/v2/user', {
   tagName: 'user related interface',
-  description: 'v1',
+  description: 'v2',
 })
-export class UserController {
+export class UserControllerV2 {
   @Inject()
-  proofService: ProofService;
+  proofService: ProofServiceV2;
 
   @Inject()
-  userService: UserService;
+  userService: UserServiceV2;
 
+  @CreateApiDoc()
+    .summary('query user activity')
+    .param('user address')
+    .param('chain id')
+    .respond(200, 'user proof result', 'json', {
+      example: {
+        code: 200,
+        data: [
+          {
+            operateType: 'Claim',
+            transactionHash: 'sdfasdfasd',
+            time: '2021-12-02 17:34:53',
+          },
+        ],
+      },
+    })
+    .build()
   @Get('/activies')
-  async listUserActivities(@Query('dataOwner') dataOwner: string) {
-    const data = await this.userService.listUserActivities(dataOwner);
+  async listUserActivities(
+    @Query('dataOwner') dataOwner: string,
+    @Query('chainId') chainId: number,
+  ) {
+    const data = await this.userService.listUserActivities(dataOwner, chainId);
     return ResultResponse.success(data);
   }
 
   @CreateApiDoc()
     .summary('query user proof attest process')
-    .description('query user proof attest process by dataOwner and programHash')
     .param('user address')
     .param('program hash')
+    .param('chain id')
     .respond(200, 'user proof result', 'json', {
       example: {
         code: 200,
@@ -59,11 +79,13 @@ export class UserController {
   @Get('/proof')
   async listUserProofProcess(
     @Query('dataOwner') dataOwner: string,
-    @Query('programHash') programHash: string
+    @Query('requestHash') requestHash: string,
+    @Query('chainId') chainId: number,
   ) {
     const data = await this.proofService.listUserProofProcess(
       dataOwner,
-      programHash
+      requestHash,
+      chainId,
     );
     return ResultResponse.success(data);
   }

@@ -1,21 +1,21 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
-import { MintPoapService } from '../service/MintPoapService';
 import { CreateApiDoc } from '@midwayjs/swagger';
-import { ResultResponse } from '../util/ResultResponse';
+import { ResultResponse } from '../../util/ResultResponse';
+import { PoapServiceV2 } from '../service/PoapServiceV2';
 
 @Provide()
-@Controller('/mint-poap', {
+@Controller('/v2/mint-poap', {
   tagName: 'mint poap operate interface',
-  description: 'v1',
+  description: 'v2',
 })
-export class MintPoapController {
+export class MintPoapControllerV2 {
   @Inject()
-  mintPoapService: MintPoapService;
+  poapService: PoapServiceV2;
 
   @CreateApiDoc()
     .summary('query mint poap result')
-    .description('query mint poap by who')
     .param('who')
+    .param('chain id')
     .respond(200, 'mint poap list', 'json', {
       example: {
         code: 200,
@@ -28,8 +28,11 @@ export class MintPoapController {
     })
     .build()
   @Get('/')
-  async getByWho(@Query('who') who: string) {
-    const data = await this.mintPoapService.getByWho(who);
+  async getByWho(
+    @Query('who') who: string,
+    @Query('chainId') chainId: number,
+  ) {
+    const data = await this.poapService.getByWho(who, chainId);
     return ResultResponse.success(data);
   }
 }

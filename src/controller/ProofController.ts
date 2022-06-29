@@ -1,7 +1,7 @@
 import { Controller, Get, Inject, Provide, Query } from '@midwayjs/decorator';
 import { CreateApiDoc } from '@midwayjs/swagger';
 import { ProofService } from '../service/ProofService';
-import { ResultVO } from '../util/ResultVO';
+import { ResultResponse } from '../util/ResultResponse';
 
 @Provide()
 @Controller('/proof', {
@@ -104,7 +104,7 @@ export class ProofController {
     @Query('requestHash') requestHash: string,
   ) {
     const result = await this.proofService.getProofVerifyProcess(dataOwner, requestHash);
-    return ResultVO.success(result);
+    return ResultResponse.success(result);
   }
 
   @CreateApiDoc()
@@ -195,6 +195,6 @@ export class ProofController {
   @Get('/result')
   async getAttestResult(@Query('rootHash') rootHash: string) {
     const result = await this.proofService.getAttestResult(rootHash);
-    return ResultVO.success(result);
+    return ResultResponse.success(result);
   }
 }
